@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="margin:0;overflow:hidden">
+    <canvas width="800" height="800" style="overflow:hidden;position: absolute;top: 50%; left: 50%;margin: -400px 0 0 -400px;"></canvas>
+</body>
+</html>
+<script>
+let text = [
+    {
+        y: 20,
+        content: "they say insanity is doing the same thing over and over and expecting a different result."
+    },
+    {
+        y: 1050,
+        content: "i guess something in our heads makes us think this time it'll be different."
+    },
+    {
+        y: 2500,
+        content: "but that quote doesn't take into account that we can improve ourselves."
+    },
+    {
+        y: 3800,
+        content: "a lot of people treat learning and self improvement like it's something you have to force"
+    },
+    {
+        y: 3770,
+        content: "yourself to do."
+    },
+    {
+        y: 4200,
+        content: "but learning can be fun."
+    },
+    {
+        y: 5600,
+        content: "the people who are the best in the world at what they do are the best at what they do"
+    },
+    {
+        y: 5570,
+        content: "because they practice the most."
+    },
+    {
+        y: 6500,
+        content: "and they practice the most because it's fun for them."
+    },
+    {
+        y: 7400,
+        content: "so find something you love to do and try to find a way to make money with it."
+    },
+    {
+        y: 8500,
+        content: "but in the meantime you should probably get back to whatever you should be doing."
+    }
+];
+let blocks = 
+[
+  {
+    "x": 100,
+    "y": 50
+  },
+  {
+    "x": 220,
+    "y": 125
+  },
+  {
+    "x": 370,
+    "y": 170
+  },
+  {
+    "x": 510,
+    "y": 220
+  },
+  {
+    "x": 655,
+    "y": 305
+  },
+  {
+    "x": 500,
+    "y": 425
+  },
+  {
+    "x": 395,
+    "y": 500
+  },
+  {
+    "x": 245,
+    "y": 570
+  },
+  {
+    "x": 135,
+    "y": 700
+  },
+  {
+    "x": 85,
+    "y": 580
+  },
+  {
+    "x": 290,
+    "y": 780
+  },
+  {
+    "x": 335,
+    "y": 900
+  },
+  {
+    "x": 490,
+    "y": 975
+  },
+  {
+    "x": 610,
+    "y": 1085
+  },
+  {
+    "x": 505,
+    "y": 1190
+  },
+  {
+    "x": 305,
+    "y": 1210
+  },
+  {
+    "x": 60,
+    "y": 1225
+  },
+  {
+    "x": 50,
+    "y": 1345
+  },
+  {
+    "x": 40,
+    "y": 1465
+  },
+  {
+    "x": 160,
+    "y": 1530
+  },
+  {
+    "x": 350,
+    "y": 1605
+  },
+  {
+    "x": 515,
+    "y": 1670
+  },
+  {
+    "x": 610,
+    "y": 1725
+  },
+  {
+    "x": 405,
+    "y": 1835
+  },
+  {
+    "x": 320,
+    "y": 1900
+  },
+  {
+    "x": 175,
+    "y": 1945
+  },
+  {
+    "x": 265,
+    "y": 2055
+  },
+  {
+    "x": 150,
+    "y": 2160
+  },
+  {
+    "x": 260,
+    "y": 2290
+  },
+  {
+    "x": 120,
+    "y": 2255
+  },
+  {
+    "x": 390,
+    "y": 2370
+  },
+  {
+    "x": 545,
+    "y": 2445
+  },
+  {
+    "x": 460,
+    "y": 2550
+  },
+  {
+    "x": 315,
+    "y": 2575
+  },
+  {
+    "x": 115,
+    "y": 2610
+  },
+  {
+    "x": 230,
+    "y": 2720
+  },
+  {
+    "x": 435,
+    "y": 2765
+  },
+  {
+    "x": 595,
+    "y": 2825
+  },
+  {
+    "x": 680,
+    "y": 2945
+  },
+  {
+    "x": 630,
+    "y": 3025
+  },
+  {
+    "x": 505,
+    "y": 3070
+  },
+  {
+    "x": 275,
+    "y": 3085
+  },
+  {
+    "x": 95,
+    "y": 3150
+  },
+  {
+    "x": 210,
+    "y": 3255
+  },
+  {
+    "x": 440,
+    "y": 3265
+  },
+  {
+    "x": 635,
+    "y": 3320
+  },
+  {
+    "x": 570,
+    "y": 3415
+  },
+  {
+    "x": 695,
+    "y": 3525
+  },
+  {
+    "x": 600,
+    "y": 3605
+  },
+  {
+    "x": 425,
+    "y": 3695
+  },
+  {
+    "x": 290,
+    "y": 3710
+  },
+  {
+    "x": 185,
+    "y": 3745
+  },
+  {
+    "x": 135,
+    "y": 3850
+  },
+  {
+    "x": 85,
+    "y": 3945
+  },
+  {
+    "x": 45,
+    "y": 4055
+  },
+  {
+    "x": 185,
+    "y": 4140
+  },
+  {
+    "x": 310,
+    "y": 4240
+  },
+  {
+    "x": 415,
+    "y": 4380
+  },
+  {
+    "x": 475,
+    "y": 4300
+  },
+  {
+    "x": 580,
+    "y": 4475
+  },
+  {
+    "x": 695,
+    "y": 4565
+  },
+  {
+    "x": 640,
+    "y": 4670
+  },
+  {
+    "x": 445,
+    "y": 4675
+  },
+  {
+    "x": 280,
+    "y": 4730
+  },
+  {
+    "x": 200,
+    "y": 4820
+  },
+  {
+    "x": 55,
+    "y": 4905
+  },
+  {
+    "x": 220,
+    "y": 4990
+  },
+  {
+    "x": 380,
+    "y": 5075
+  },
+  {
+    "x": 620,
+    "y": 5085
+  },
+  {
+    "x": 740,
+    "y": 5165
+  },
+  {
+    "x": 625,
+    "y": 5250
+  },
+  {
+    "x": 375,
+    "y": 5245
+  },
+  {
+    "x": 280,
+    "y": 5325
+  },
+  {
+    "x": 175,
+    "y": 5395
+  },
+  {
+    "x": 100,
+    "y": 5510
+  },
+  {
+    "x": 325,
+    "y": 5545
+  },
+  {
+    "x": 455,
+    "y": 5635
+  },
+  {
+    "x": 555,
+    "y": 5730
+  },
+  {
+    "x": 460,
+    "y": 5845
+  },
+  {
+    "x": 555,
+    "y": 5905
+  },
+  {
+    "x": 635,
+    "y": 6005
+  },
+  {
+    "x": 585,
+    "y": 6115
+  },
+  {
+    "x": 445,
+    "y": 6185
+  },
+  {
+    "x": 265,
+    "y": 6285
+  },
+  {
+    "x": 380,
+    "y": 6365
+  },
+  {
+    "x": 175,
+    "y": 6425
+  },
+  {
+    "x": 335,
+    "y": 6535
+  },
+  {
+    "x": 490,
+    "y": 6610
+  },
+  {
+    "x": 655,
+    "y": 6680
+  },
+  {
+    "x": 595,
+    "y": 6785
+  },
+  {
+    "x": 475,
+    "y": 6880
+  },
+  {
+    "x": 285,
+    "y": 6885
+  },
+  {
+    "x": 45,
+    "y": 6890
+  },
+  {
+    "x": 75,
+    "y": 7005
+  },
+  {
+    "x": 200,
+    "y": 7095
+  },
+  {
+    "x": 315,
+    "y": 7210
+  },
+  {
+    "x": 470,
+    "y": 7285
+  },
+  {
+    "x": 625,
+    "y": 7340
+  },
+  {
+    "x": 455,
+    "y": 7455
+  },
+  {
+    "x": 235,
+    "y": 7495
+  },
+  {
+    "x": 150,
+    "y": 7570
+  },
+  {
+    "x": 360,
+    "y": 7660
+  },
+  {
+    "x": 560,
+    "y": 7680
+  },
+  {
+    "x": 655,
+    "y": 7765
+  },
+  {
+    "x": 495,
+    "y": 7855
+  },
+  {
+    "x": 315,
+    "y": 7920
+  },
+  {
+    "x": 240,
+    "y": 8035
+  },
+  {
+    "x": 85,
+    "y": 8100
+  },
+  {
+    "x": 260,
+    "y": 8215
+  },
+  {
+    "x": 415,
+    "y": 8315
+  },
+  {
+    "x": 535,
+    "y": 8425
+  },
+  {
+    "x": 400,
+    "y": 8530
+  }
+];
+let ctx = document.getElementsByTagName("canvas")[0].getContext("2d");
+
+let lastUpdate = Date.now();
+const msPerUpdate = 20;
+
+let playerX = 375;
+let playerY = 0;
+let playerDX = 0;
+let playerDY = 0;
+
+let keyUp = false;
+let blockKeyUp = false;
+let keyLeft = false;
+let keyRight = false;
+
+let size = 50;
+
+let numJumps = 0;
+
+window.onkeydown = (key) => {
+    if (key.code === "Space" || key.code === "KeyW") {
+        if (!blockKeyUp) {
+            keyUp = true;
+            blockKeyUp = true;
+        }
+    }
+    else if (key.code === "KeyA") {
+        keyLeft = true;
+    }
+    else if (key.code === "KeyD") {
+        keyRight = true;
+    }
+}
+
+window.onkeyup = (key) => {
+    if (key.code === "Space" || key.code === "KeyW") {
+        keyUp = false;
+        blockKeyUp = false;
+    }
+    else if (key.code === "KeyA") {
+        keyLeft = false;
+    }
+    else if (key.code === "KeyD") {
+        keyRight = false;
+    }
+}
+
+window.onclick = (click) => {
+    let clickY = 800 - click.offsetY;
+    if (playerY > 200) {
+        clickY += (playerY - 200);
+    }
+    for (let i = 0; i < blocks.length; i++) {
+        if (click.offsetX >= blocks[i].x && click.offsetX <= blocks[i].x + size && clickY >= blocks[i].y && clickY <= blocks[i].y + size) {
+            blocks.splice(i, 1);
+            return;
+        }
+    }
+    blocks.push({x: Math.floor(click.offsetX / 5) * 5, y: Math.floor(clickY / 5) * 5 });
+}
+
+function update() {
+    readInputs();
+    drawBackground();
+    drawText();
+    drawPlayer();
+    drawBlocks();
+}
+
+function readInputs() {
+    playerDY -= 1;
+    if (size - playerDY <= 0) {
+        playerDY += 1;
+    }
+    if (keyUp) {
+        keyUp = false;
+        if (grounded) {
+            playerDY = 15;
+            numJumps++;
+        }
+    }
+    if (keyRight) {
+        playerX += 5;
+    }
+    if (keyLeft) {
+        playerX -= 5;
+    }
+
+    playerY += playerDY;
+    grounded = false;
+    collision();
+
+    if (playerY <= 0) {
+        playerY = 0;
+        playerDY = 0;
+        grounded = true;
+    }
+}
+
+function collision() {
+    if (playerDY > 0) {
+        return;
+    }
+    for (let i = 0; i < blocks.length; i++) {
+        if (collides(i)) {
+            playerY = blocks[i].y + size;
+            playerDY = 0;
+            grounded = true;
+        }
+    }
+}
+
+function collides(i) {
+    if (
+        (
+            (playerX >= blocks[i].x && playerX <= blocks[i].x + size)
+            ||
+            (playerX + size >= blocks[i].x && playerX + size <= blocks[i].x + size)
+        )
+        &&
+        (playerY >= blocks[i].y && playerY <= blocks[i].y + size)
+        &&
+        !(playerY - playerDY + 1 >= blocks[i].y && playerY - playerDY + 1 <= blocks[i].y + size)
+    ) {
+        return true;
+    }
+    return false;
+}
+
+function drawText() {
+    ctx.fillStyle = "black";
+    ctx.font = "20px arial";
+    if (playerY < 200) {
+        for (let i = 0; i < text.length; i++) {
+            ctx.fillText(text[i].content, 20, 800 - text[i].y);
+        }
+    }
+    else {
+        for (let i = 0; i < text.length; i++) {
+            ctx.fillText(text[i].content, 20, 800 + (playerY - 200) - text[i].y);
+        }
+    }
+}
+
+function drawBackground() {
+    ctx.fillStyle = "gray";
+    ctx.fillRect(0, 0, 800, 800);
+    if (playerY < 200) {
+        for (let i = 0; i < blocks.length; i++) {
+            ctx.fillStyle = "black";
+            ctx.fillRect(blocks[i].x + 5, 800 - blocks[i].y - size + 5, size, size);
+        }
+    }
+    else {
+        for (let i = 0; i < blocks.length; i++) {
+            ctx.fillStyle = "black";
+            ctx.fillRect(blocks[i].x + 5, 800 - blocks[i].y - size + 5 + (playerY - 200), size, size);
+        }
+    }
+}
+
+function drawPlayer() {
+    ctx.fillStyle = "black";
+    if (playerY < 200) {
+        ctx.fillRect(playerX, 800 - playerY - size, size, size);
+    }
+    else {
+        ctx.fillRect(playerX, 800 - 200 - size, size, size);
+    }
+}
+
+function drawBlocks() {
+    ctx.fillStyle = "white";
+    if (playerY < 200) {
+        for (let i = 0; i < blocks.length; i++) {
+            ctx.fillRect(blocks[i].x, 800 - blocks[i].y - size, size, size);
+        }
+    }
+    else {
+        for (let i = 0; i < blocks.length; i++) {
+            ctx.fillRect(blocks[i].x, 800 - blocks[i].y + (playerY - 200) - size, size, size);
+        }
+    }
+    
+}
+
+function drawNumJumps() {
+    ctx.strokeStyle = "black";
+    ctx.strokeText(numJumps, 10, 10);
+    ctx.strokeText(grounded, 500, 10);
+}
+
+setInterval(() => {
+    let now = Date.now();
+    if (now - lastUpdate >= msPerUpdate) {
+        lastUpdate += msPerUpdate;
+        update();
+    }
+}, 1);
+</script>
