@@ -1,3 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            font-family: monospace
+        }
+    </style>
+</head>
+<body>
+    <input type="text">
+    <Button onclick="generate()">go</Button>
+</body>
+<script>
 async function sha256(x) {
     const msgBuffer = new TextEncoder().encode(x);                    
     const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -27,3 +44,5 @@ async function generate() {
 async function mpm(x) {
     return b94(await sha256(x));
 }
+</script>
+</html>
