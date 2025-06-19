@@ -1,0 +1,29 @@
+async function sha256(x) {
+    const msgBuffer = new TextEncoder().encode(x);                    
+    const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    return hashHex;
+}
+
+function b94(x) {
+    const b94Chars = '!"#$%&\'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~';
+    let output = '';
+    let byteArray = [];
+    for (let i = 0; i < x.length; i+=2) {
+        byteArray.push(parseInt(x.substring(i, i + 2), 16));
+    }
+    for (let byte of byteArray) {
+        output += b94Chars[byte % 94];
+    }
+    return output;
+}
+
+async function generate() {
+    let text = document.getElementsByTagName("input")[0];
+    text.value = (await mpm(text.value)).substring(0,12);
+}
+
+async function mpm(x) {
+    return b94(await sha256(x));
+}
